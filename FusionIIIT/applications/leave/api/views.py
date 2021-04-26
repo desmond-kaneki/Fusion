@@ -45,7 +45,7 @@ def leaves_count_api(request):
         }
         return Response(data=resp,status=status.HTTP_200_OK)
     elif request.method == 'POST':
-        serializer = serializers.LeaveCountSerializers(data=request.data)
+        serializer = serializers.LeavesCountSerializers(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -74,7 +74,6 @@ def leave_api(request):
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication])
 def replacement_segment_api(request):
-
     if request.method == 'GET':
         replacement_segment = ReplacementSegment.objects.all()
         replacement_segment = serializers.ReplacementSegmentSerializers(replacement_segment,many=True).data
@@ -291,7 +290,7 @@ def edit_leave_type_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Type deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveTypeSerializers(complain,data=request.data)
+        serializer = serializers.LeaveTypeSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -300,16 +299,16 @@ def edit_leave_type_api(request,c_id):
 @api_view(['DELETE','PUT'])
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication])
-def edit_leave_count_api(request,c_id):
+def edit_leaves_count_api(request,c_id):
     try: 
-        obj = LeaveCount.objects.get(id = c_id) 
-    except LeaveCount.DoesNotExist: 
+        obj = LeavesCount.objects.get(id = c_id) 
+    except LeavesCount.DoesNotExist: 
         return Response({'message': 'The Leave Count does not exist'}, status=status.HTTP_404_NOT_FOUND)
     if request.method == 'DELETE':
         obj.delete()
-        return Response({'message': 'Leave Count deleted'},status=status.HTTP_200_OK)
+        return Response({'message': 'Leaves Count deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveCountSerializers(complain,data=request.data)
+        serializer = serializers.LeavesCountSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -327,7 +326,7 @@ def edit_leave_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveSerializers(complain,data=request.data)
+        serializer = serializers.LeaveSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -337,6 +336,7 @@ def edit_leave_api(request,c_id):
 @permission_classes([IsAuthenticated])
 @authentication_classes([TokenAuthentication])
 def edit_replacement_segment_api(request,c_id):
+    return Response({'message': 'working'})
     try: 
         obj = ReplacementSegment.objects.get(id = c_id) 
     except ReplacementSegment.DoesNotExist: 
@@ -345,7 +345,7 @@ def edit_replacement_segment_api(request,c_id):
         obj.delete()
         return Response({'message': 'Replacement Segment deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.ReplacementSegmentSerializers(complain,data=request.data)
+        serializer = serializers.ReplacementSegmentSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -363,7 +363,7 @@ def edit_replacement_segment_offline_api(request,c_id):
         obj.delete()
         return Response({'message': 'Replacement Segment Offline deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.ReplacementSegmentOfflineSerializers(complain,data=request.data)
+        serializer = serializers.ReplacementSegmentOfflineSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -381,7 +381,7 @@ def edit_leave_segment_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Segment deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveSegmentSerializers(complain,data=request.data)
+        serializer = serializers.LeaveSegmentSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -399,7 +399,7 @@ def edit_leave_segment_offline_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Segment Offline deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveSegmentOfflineSerializers(complain,data=request.data)
+        serializer = serializers.LeaveSegmentOfflineSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -417,7 +417,7 @@ def edit_leave_request_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Request deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveRequestSerializers(complain,data=request.data)
+        serializer = serializers.LeaveRequestSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -435,7 +435,7 @@ def edit_leave_administrators_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Administrators deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveAdministratorsSerializers(complain,data=request.data)
+        serializer = serializers.LeaveAdministratorsSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -453,7 +453,7 @@ def edit_leave_migration_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Migration deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveMigrationSerializers(complain,data=request.data)
+        serializer = serializers.LeaveMigrationSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -472,7 +472,7 @@ def edit_restricted_holiday_api(request,c_id):
         obj.delete()
         return Response({'message': 'Restricted Holiday deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.RestrictedHolidaySerializers(complain,data=request.data)
+        serializer = serializers.RestrictedHolidaySerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -490,7 +490,7 @@ def edit_closed_holiday_api(request,c_id):
         obj.delete()
         return Response({'message': 'Closed Holiday deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.ClosedHolidaySerializers(complain,data=request.data)
+        serializer = serializers.ClosedHolidaySerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -508,7 +508,7 @@ def edit_vacation_holiday_api(request,c_id):
         obj.delete()
         return Response({'message': 'Vacation Holiday deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.VacationHolidaySerializers(complain,data=request.data)
+        serializer = serializers.VacationHolidaySerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)
@@ -526,7 +526,7 @@ def edit_leave_offline_api(request,c_id):
         obj.delete()
         return Response({'message': 'Leave Offline deleted'},status=status.HTTP_200_OK)
     elif request.method == 'PUT':
-        serializer = serializers.LeaveOfflineSerializers(complain,data=request.data)
+        serializer = serializers.LeaveOfflineSerializers(obj,data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_200_OK)

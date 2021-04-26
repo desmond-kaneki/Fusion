@@ -19,9 +19,10 @@ urlpatterns = [
     url(r'vacationholiday',views.vacation_holiday_api,name='vacation-holiday-api'),
     url(r'leaveoffline',views.leave_offline_api,name='leave-offline-api'),
     url(r'editleavetype/(?P<c_id>[0-9]+)',views.edit_leave_type_api,name='edit-leave-type-api'),
-    url(r'editleavecount/(?P<c_id>[0-9]+)',views.edit_leave_count_api,name='edit-leave-count-api'),
+    url(r'editleavescount/(?P<c_id>[0-9]+)',views.edit_leaves_count_api,name='edit-leaves-count-api'),
     url(r'editleave/(?P<c_id>[0-9]+)',views.edit_leave_api,name='edit-leave-api'),
-    url(r'editreplacementsegment/(?P<c_id>[0-9]+)',views.edit_replacement_segment_api,name='edit-replacement-segment-api'),
+
+    url(r'editreplacementsegment/(?P<c_id>[0-9]+)',views.edit_replacement_segment_api,name ='edit-replacement-segment-api'),
     url(r'editreplacementsegmentoffline/(?P<c_id>[0-9]+)',views.edit_replacement_segment_offline_api,name='edit-replacement-segment-offline-api'),
     url(r'editleavesegment/(?P<c_id>[0-9]+)',views.edit_leave_segment_api,name='edit-leave-segment-api'),
     url(r'editleavesegmentoffline/(?P<c_id>[0-9]+)',views.edit_leave_segment_offline_api,name='edit-leave-segment-offline-api'),
